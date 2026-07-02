@@ -14,6 +14,8 @@ async def create_subscription(user_id: str, sub_data: SubscriptionCreate) -> Sub
         "renewal_date": datetime.combine(sub_data.renewal_date, datetime.min.time()),
         "status": "active",
         "category": sub_data.category,
+        "notify_days_before": sub_data.notify_days_before,
+        "last_notified_renewal": None,
         "created_at": datetime.utcnow(),
         "updated_at": datetime.utcnow(),
     }
@@ -68,3 +70,41 @@ async def delete_subscription(subscription_id: str, user_id: str) -> bool:
     })
 
     return result.deleted_count > 0
+
+async def get_notifiable_subscriptions() -> List[Subscription]:
+    cursor = subscriptions_collection.find({
+        "status": "active",
+        "notify_days_before": {"$ne": None},
+    })
+    subscriptions = []
+
+    async for sub in cursor:
+        sub["id"] = str(sub.pop("_id"))
+        subscriptions.append(Subscription(**sub))
+
+    return subscriptions
+
+async def mark_notified(subscription_id: str, renewal_date: date) -> None:
+    await subscriptions_collection.update_one(
+        {"_id": ObjectId(subscription_id)},
+        {"$set": {"last_notified_renewal": datetime.combine(renewal_date, datetime.min.time())}}
+    )
+
+async def get_active_subscriptions() -> List[Subscription]:
+    cursor = subscriptions_collection.find({"status": "active"})
+    subscriptions = []
+
+    async for sub in cursor:
+        sub["id"] = str(sub.pop("_id"))
+        subscriptions.append(Subscription(**sub))
+
+    return subscriptions
+
+async def set_renewal_date(subscription_id: str, renewal_date: date) -> None:
+    await subscriptions_collection.update_one(
+        {"_id": ObjectId(subscription_id)},
+        {"$set": {
+            "renewal_date": datetime.combine(renewal_date, datetime.min.time()),
+            "updated_at": datetime.utcnow(),
+        }}
+    )

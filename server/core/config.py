@@ -8,6 +8,13 @@ class Settings(BaseSettings):
     # Clerk
     CLERK_JWKS_URL: str
 
+    # Email notifications (Resend)
+    RESEND_API_KEY: str = ""
+    EMAIL_FROM: str = "Subscription Manager <onboarding@resend.dev>"
+    NOTIFY_ENABLED: bool = True
+    # Hour of day (UTC, 0-23) the daily notification job runs
+    NOTIFY_HOUR_UTC: int = 13
+
     # Logging settings
     LOG_LEVEL: str = "INFO"
 

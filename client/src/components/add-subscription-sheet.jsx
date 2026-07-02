@@ -21,7 +21,15 @@ import {
 
 const CATEGORIES = ["Entertainment", "Productivity", "Developer Tools", "Cloud Storage", "Health & Fitness", "News & Media", "Other"]
 
-const empty = { name: '', platform: '', cost: '', billing_cycle: '', renewal_date: '', category: '' }
+const NOTIFY_OPTIONS = [
+    { value: 'off', label: 'Off' },
+    { value: '0', label: 'On renewal day' },
+    { value: '1', label: '1 day before' },
+    { value: '3', label: '3 days before' },
+    { value: '7', label: '7 days before' },
+]
+
+const empty = { name: '', platform: '', cost: '', billing_cycle: '', renewal_date: '', category: '', notify: 'off' }
 
 export function AddSubscriptionSheet({ open, onOpenChange, onSuccess }) {
     const { apiFetch } = useApi()
@@ -60,6 +68,7 @@ export function AddSubscriptionSheet({ open, onOpenChange, onSuccess }) {
                     billing_cycle: form.billing_cycle,
                     renewal_date: form.renewal_date,
                     category: form.category || null,
+                    notify_days_before: form.notify === 'off' ? null : parseInt(form.notify, 10),
                 }),
             })
             if (res.ok) {
@@ -148,6 +157,19 @@ export function AddSubscriptionSheet({ open, onOpenChange, onSuccess }) {
                                     </SelectContent>
                                 </Select>
                             </div>
+                        </div>
+
+                        <div className="flex flex-col gap-1.5">
+                            <Label>Email reminder</Label>
+                            <Select value={form.notify} onValueChange={v => set('notify', v)}>
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Off" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {NOTIFY_OPTIONS.map(o => <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>)}
+                                </SelectContent>
+                            </Select>
+                            <span className="text-xs text-muted-foreground">We'll email you before this subscription renews.</span>
                         </div>
 
                         {errors.general && <p className="text-xs text-red-500">{errors.general}</p>}

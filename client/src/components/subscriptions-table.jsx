@@ -109,7 +109,13 @@ const columns = [
             <span className="sr-only">Open menu</span>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-32">
+        <DropdownMenuContent align="end" className="w-40">
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onClick={() => table.options.meta?.onTestReminder(row.original.id)}
+          >
+            Send test email
+          </DropdownMenuItem>
           <DropdownMenuItem
             variant="destructive"
             className="cursor-pointer"
@@ -123,7 +129,7 @@ const columns = [
   },
 ]
 
-export function SubscriptionsTable({ data, onDelete, onAdd }) {
+export function SubscriptionsTable({ data, onDelete, onTestReminder, onAdd }) {
   const [globalFilter, setGlobalFilter] = React.useState("")
   const [pagination, setPagination] = React.useState({ pageIndex: 0, pageSize: 10 })
   const [sorting, setSorting] = React.useState([])
@@ -139,7 +145,7 @@ export function SubscriptionsTable({ data, onDelete, onAdd }) {
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    meta: { onDelete },
+    meta: { onDelete, onTestReminder },
   })
 
   return (

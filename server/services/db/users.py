@@ -20,6 +20,9 @@ async def get_user_by_email(email: str) -> User:
     user = await users_collection.find_one({"email": email})
     return user
 
+async def get_user_by_clerk_id(clerk_user_id: str):
+    return await users_collection.find_one({"clerk_user_id": clerk_user_id})
+
 async def delete_user(clerk_user_id: str) -> bool:
     result = await users_collection.delete_one({"clerk_user_id": clerk_user_id})
     return result.deleted_count > 0

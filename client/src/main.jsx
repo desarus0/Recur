@@ -15,6 +15,7 @@ import Pricing from './pages/pricing.jsx'
 import Resources from './pages/resources.jsx'
 import { AddSubProvider, useAddSub } from './context/addSubscriptionContext.jsx'
 import { AddSubscriptionSheet } from './components/add-subscription-sheet.jsx'
+import { Toaster } from '@/components/ui/sonner'
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
@@ -34,6 +35,7 @@ createRoot(document.getElementById('root')).render(
         <BrowserRouter>
           <AddSubProvider>
             <GlobalSheet />
+            <Toaster />
             <Routes>
               <Route path="/" element={<App />} />
               <Route path="/register" element={<SignUp />} />

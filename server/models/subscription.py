@@ -9,6 +9,7 @@ class SubscriptionCreate(BaseModel):
     billing_cycle: str
     renewal_date: date
     category: Optional[str] = None
+    notify_days_before: Optional[int] = None
 
 class SubscriptionUpdate(BaseModel):
     platform: Optional[str] = None
@@ -18,6 +19,7 @@ class SubscriptionUpdate(BaseModel):
     renewal_date: Optional[date] = None
     status: Optional[str] = None
     category: Optional[str] = None
+    notify_days_before: Optional[int] = None
 
 class Subscription(BaseModel):
     id: Optional[str] = None
@@ -29,6 +31,8 @@ class Subscription(BaseModel):
     renewal_date: date
     status: str = "active"
     category: Optional[str] = None
+    notify_days_before: Optional[int] = None
+    last_notified_renewal: Optional[date] = None
     created_at: datetime = datetime.utcnow()
     updated_at: datetime = datetime.utcnow()
 
@@ -41,3 +45,4 @@ class SubscriptionResponse(BaseModel):
     renewal_date: date
     status: str
     category: Optional[str] = None
+    notify_days_before: Optional[int] = None
