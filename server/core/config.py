@@ -10,7 +10,7 @@ class Settings(BaseSettings):
 
     # Email notifications (Resend)
     RESEND_API_KEY: str = ""
-    EMAIL_FROM: str = "Subscription Manager <onboarding@resend.dev>"
+    EMAIL_FROM: str = "Recur <alerts@recur-app.com>"
     NOTIFY_ENABLED: bool = True
     # Hour of day (UTC, 0-23) the daily notification job runs
     NOTIFY_HOUR_UTC: int = 13
