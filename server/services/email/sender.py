@@ -25,7 +25,7 @@ def send_renewal_reminder(to_email: str, sub_name: str, platform: str, cost: flo
         <tr><td style="padding:6px 0;color:#888">Cost</td><td style="padding:6px 0;text-align:right">${cost:.2f}/{billing_cycle}</td></tr>
         <tr><td style="padding:6px 0;color:#888">Renewal date</td><td style="padding:6px 0;text-align:right">{renewal_str}</td></tr>
       </table>
-      <p style="color:#999;font-size:12px">Sent by Subscription Manager.</p>
+      <p style="color:#999;font-size:12px">Sent by Recur Alerts.</p>
     </div>
     """
 
