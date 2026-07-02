@@ -12,7 +12,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { LayoutDashboardIcon, ChartBarIcon, FolderIcon, CircleHelpIcon, SearchIcon } from "lucide-react"
+import { LayoutDashboardIcon, ChartBarIcon, FolderIcon, CircleHelpIcon } from "lucide-react"
 import { Link } from "react-router-dom"
 import { useUser } from "@clerk/clerk-react"
 import logo from "@/assets/logo.png"
@@ -44,7 +44,7 @@ const data = {
   navSecondary: [
     {
       title: "Get Help",
-      url: "https://github.com/desarus0/Subscription-Manager/issues",
+      url: "https://github.com/desarus0/recur/issues",
       icon: (
         <CircleHelpIcon />
       ),
