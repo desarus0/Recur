@@ -1,6 +1,6 @@
 <div align="center">
 
-# <img src="docs/images/logo.png" alt="Recur logo" height="40" align="middle" /> Recur
+# <img src="docs/images/logo.png" alt="Recur logo" height="40" align="top" /> Recur
 
 A subscription tracker that keeps tabs on your recurring costs and reminds you before anything renews.
 
