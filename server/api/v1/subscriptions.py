@@ -57,7 +57,7 @@ async def send_test_reminder(subscription_id: str, current_user: dict = Depends(
     if not user or not user.get("email"):
         raise HTTPException(status_code=400, detail="NO_EMAIL_ON_FILE")
 
-    sent = await send_reminder_for(subscription, user["email"])
+    sent = await send_reminder_for(subscription, user["email"], kind="test")
     if not sent:
         raise HTTPException(status_code=502, detail="EMAIL_SEND_FAILED")
 

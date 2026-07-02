@@ -10,6 +10,7 @@ import VerifyPage from './pages/verifyPage.jsx'
 import Dashboard from './pages/dashboard.jsx'
 import Analytics from './pages/analytics.jsx'
 import Subscriptions from './pages/subscriptions.jsx'
+import Notifications from './pages/notifications.jsx'
 import SignIn from './pages/signinPage.jsx'
 import Pricing from './pages/pricing.jsx'
 import Resources from './pages/resources.jsx'
@@ -43,6 +44,7 @@ createRoot(document.getElementById('root')).render(
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/analytics" element={<Analytics />} />
               <Route path="/subscriptions" element={<Subscriptions />} />
+              <Route path="/notifications" element={<Notifications />} />
               <Route path="/login" element={<SignIn />} />
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/resources" element={<Resources />} />

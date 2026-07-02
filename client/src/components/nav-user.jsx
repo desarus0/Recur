@@ -18,14 +18,16 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
-import { EllipsisVerticalIcon, CircleUserRoundIcon, CreditCardIcon, BellIcon, LogOutIcon } from "lucide-react"
+import { EllipsisVerticalIcon, BellIcon, LogOutIcon } from "lucide-react"
 import { useClerk } from "@clerk/clerk-react"
+import { useNavigate } from "react-router-dom"
 
 export function NavUser({
   user
 }) {
   const { isMobile } = useSidebar()
   const { signOut } = useClerk()
+  const navigate = useNavigate()
 
   const initials = user.name
     .split(" ")
@@ -76,11 +78,7 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem className="cursor-pointer">
-                <CircleUserRoundIcon />
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer">
+              <DropdownMenuItem className="cursor-pointer" onClick={() => navigate("/notifications")}>
                 <BellIcon />
                 Notifications
               </DropdownMenuItem>

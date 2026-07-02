@@ -12,7 +12,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { LayoutDashboardIcon, ChartBarIcon, FolderIcon, Settings2Icon, CircleHelpIcon, SearchIcon } from "lucide-react"
+import { LayoutDashboardIcon, ChartBarIcon, FolderIcon, CircleHelpIcon, SearchIcon } from "lucide-react"
 import { Link } from "react-router-dom"
 import { useUser } from "@clerk/clerk-react"
 import logo from "@/assets/logo.png"
@@ -42,13 +42,6 @@ const data = {
     },
   ],
   navSecondary: [
-    {
-      title: "Settings",
-      url: "/account",
-      icon: (
-        <Settings2Icon />
-      ),
-    },
     {
       title: "Get Help",
       url: "https://github.com/desarus0/Subscription-Manager/issues",

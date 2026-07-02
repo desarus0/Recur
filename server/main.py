@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from api.v1 import auth, subscriptions, analytics
+from api.v1 import auth, subscriptions, analytics, notifications
 from core.logger import logger
 from core.config import settings
 from middleware.cors import add_cors
@@ -42,6 +42,7 @@ add_cors(app)
 app.include_router(auth.router, prefix="/api/v1/auth", tags=["Authentication"])
 app.include_router(subscriptions.router, prefix="/api/v1/subscriptions", tags=["Subscriptions"])
 app.include_router(analytics.router, prefix="/api/v1/analytics", tags=["Analytics"])
+app.include_router(notifications.router, prefix="/api/v1/notifications", tags=["Notifications"])
 
 @app.get("/")
 async def root():
