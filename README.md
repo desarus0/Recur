@@ -1,10 +1,8 @@
 <div align="center">
 
-<img src="docs/images/logo.png" alt="Recur logo" width="90" />
+# <img src="docs/images/logo.png" alt="Recur logo" height="40" align="middle" /> Recur
 
-# Recur
-
-Keep track of what you're subscribed to, see how much it all adds up to, and get an email before anything renews.
+A subscription tracker that keeps tabs on your recurring costs and reminds you before anything renews.
 
 [![Live](https://img.shields.io/badge/live-recur--app.com-6366f1)](https://recur-app.com)
 
@@ -14,9 +12,9 @@ Keep track of what you're subscribed to, see how much it all adds up to, and get
 
 ## About
 
-Recur is a subscription tracker I built end to end. You add the things you pay for on a recurring basis, and it keeps tabs on the cost, sorts your spending by category, and emails you a few days before a subscription renews so you have time to cancel if you want to.
+Recur tracks recurring payments in one place. Add a subscription with its cost, billing cycle, and renewal date, and Recur totals your monthly and yearly spend, breaks it down by category, and sends an email reminder ahead of each renewal. Renewal dates advance automatically each cycle, and every reminder that goes out is kept in a history view.
 
-It's a React frontend and a FastAPI backend with MongoDB, using Clerk for auth and Resend for the reminder emails. Everything runs in Docker, deployed to EC2 through GitHub Actions.
+The frontend is React and Vite with Tailwind and shadcn/ui. The backend is FastAPI with MongoDB, Clerk for authentication, and Resend for email. Both run in Docker and deploy to EC2 through GitHub Actions.
 
 ## Screenshots
 
@@ -30,11 +28,11 @@ It's a React frontend and a FastAPI backend with MongoDB, using Clerk for auth a
 
 ## Setup
 
-You'll need Docker, a MongoDB connection string, and a Clerk app. A Resend API key is optional (without it, emails are just skipped).
+Requires Docker, a MongoDB connection string, and a Clerk application. A Resend API key is optional; email reminders are skipped without one.
 
 1. Copy `server/.env.example` to `server/.env` and fill in your values.
 2. Copy `client/.env.example` to `client/.env` and add your Clerk publishable key.
-3. Start it:
+3. Build and run:
 
 ```bash
 VITE_CLERK_PUBLISHABLE_KEY=pk_xxx VITE_API_URL="" docker-compose -f docker-compose.dev.yaml up --build
@@ -44,4 +42,4 @@ The app runs at http://localhost and the API at http://localhost:8000.
 
 ## Deployment
 
-Pushing to `main` builds the Docker images, pushes them to AWS ECR, and deploys to EC2 over SSH. nginx serves the frontend, proxies the API, and handles HTTPS with a Let's Encrypt certificate.
+Pushing to `main` builds the server and client images, pushes them to AWS ECR, and deploys to EC2 over SSH. In production, nginx serves the frontend, proxies API requests, and terminates HTTPS with a Let's Encrypt certificate.
