@@ -2,8 +2,6 @@ from fastapi import APIRouter, HTTPException, status, Depends
 from models.subscription import SubscriptionCreate, SubscriptionResponse, SubscriptionUpdate
 from core.logger import logger
 from services.db.subscriptions import create_subscription, get_user_subscriptions, get_subscription_by_id, delete_subscription, update_subscription
-from services.db.users import get_user_by_clerk_id
-from services.email.notifications import send_reminder_for
 from auth.dependencies import get_current_user
 from typing import List
 
@@ -44,24 +42,6 @@ async def update_sub(subscription_id: str, update_data: SubscriptionUpdate, curr
         raise HTTPException(status_code=404, detail="INVALID_SUBSCRIPTION")
     
     return subscription_update
-
-@router.post("/{subscription_id}/test-reminder", status_code=status.HTTP_200_OK)
-async def send_test_reminder(subscription_id: str, current_user: dict = Depends(get_current_user)):
-    user_id = current_user["clerk_user_id"]
-
-    subscription = await get_subscription_by_id(subscription_id, user_id)
-    if not subscription:
-        raise HTTPException(status_code=404, detail="INVALID_SUBSCRIPTION")
-
-    user = await get_user_by_clerk_id(user_id)
-    if not user or not user.get("email"):
-        raise HTTPException(status_code=400, detail="NO_EMAIL_ON_FILE")
-
-    sent = await send_reminder_for(subscription, user["email"], kind="test")
-    if not sent:
-        raise HTTPException(status_code=502, detail="EMAIL_SEND_FAILED")
-
-    return {"status": "sent", "to": user["email"]}
 
 @router.delete("/{subscription_id}", status_code=204)
 async def delete_sub(subscription_id: str, current_user: dict = Depends(get_current_user)):
